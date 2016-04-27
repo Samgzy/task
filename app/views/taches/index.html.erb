@@ -1,0 +1,45 @@
+<h1>Gestion de nos dépenses</h1>
+<div class="well">
+  <%= link_to "Nouveau frais", new_tach_path, class: "btn btn-primary" %>
+</div>
+
+<% if flash[:notice] %>
+  <div class="alert alert-success"><%= flash[:notice] %></div>
+<% end %>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Intitulé</th>
+      <th>Société</th>
+      <th>Montant</th>
+      <th>Date</th>
+      <th>Notes</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @tache.size == 0 %>
+      <tr>
+        <td colspan="7">Pas de frais</td>
+      </tr>
+    <% else %>
+      <% @tache.each do |tache| %>
+        <tr>
+          <td><%= tache.nom %></td>
+          <td><%= tache.societe %></td>
+          <td><%= tache.montant %></td>
+          <td><%= tache.date %></td>
+          <td><%= tache.notes %></td>
+          <td>
+            <%= link_to "Editer", edit_tach_path(tache), class: "btn btn-default" %>
+          </td>
+          <td>
+            <%= button_to "Supprimer", tache, method: :delete, data: { confirm: "Confirmes-tu la suppression ?" }, class: "btn btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
